@@ -1,0 +1,16 @@
+<<<<<<< HEAD
+node_modules
+=======
+node_modules
+dist
+.wrangler
+.dev.vars
+.env
+wrangler.toml
+
+# Change them to your taste:
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lock
+>>>>>>> 2fb07cfdd8e8b5a27e5abcc288a0e8899ebfa5cd
