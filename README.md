@@ -2,6 +2,10 @@
 
 This project is a video streaming service built with Node.js and Express. It allows users to upload videos, which are then converted to HLS (HTTP Live Streaming) format using ffmpeg. The converted videos can be streamed through a frontend interface.
 
+## Video is streamed in Segments
+
+![Demo](https://github.com/hrishi0102/videostream-server/assets/97527878/78dc0293-d1ae-45ac-b9ac-7de03026ea22)
+
 ## Features
 
 - **File Upload**: Users can upload video files.
