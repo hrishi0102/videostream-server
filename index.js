@@ -49,45 +49,29 @@ app.get("/", (req, res) => {
   res.json({ message: "hello" });
 });
 
-// Define a POST route for uploading a video file
 app.post("/upload", upload.single("file"), (req, res) => {
-  // Generate a unique identifier for the uploaded video
   const lessonId = uuidv4();
-
-  // Path to the uploaded video file
   const videoPath = req.file.path;
-
-  // Directory where the converted HLS files will be stored
   const outputPath = `./uploads/courses/${lessonId}`;
-
-  // Path to the HLS master playlist file
   const hlsPath = `${outputPath}/index.m3u8`;
   console.log("hls path: ", hlsPath);
 
-  // Check if the output directory exists, if not, create it
   if (!fs.existsSync(outputPath)) {
     fs.mkdirSync(outputPath, { recursive: true });
   }
 
-  // Command to convert the video to HLS format using ffmpeg
+  // command to convert video to HLS format using ffmpeg
   const ffmpegCommand = `ffmpeg -i ${videoPath} -codec:v libx264 -codec:a aac -hls_time 10 -hls_playlist_type vod -hls_segment_filename "${outputPath}/segment%03d.ts" -start_number 0 ${hlsPath}`;
 
-  // Execute the ffmpeg command to convert the video
-  // Note: In production, use a queue to handle the conversion process
+  //use queue in production code
   exec(ffmpegCommand, (error, stdout, stderr) => {
     if (error) {
       console.log(`exec error: ${error}`);
       return;
     }
-
-    // Log the standard output and error from the ffmpeg command
     console.log(`stdout: ${stdout}`);
     console.log(`stderr: ${stderr}`);
-
-    // URL to access the converted HLS video
     const videoUrl = `http://localhost:3000/uploads/courses/${lessonId}/index.m3u8`;
-
-    // Send a JSON response with the conversion result
     res.json({
       message: "Video converted to HLS format",
       videoUrl: videoUrl,
