@@ -44,7 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 
 app.get("/", function (req, res) {
-  res.json({ message: "Hello chai aur code" });
+  res.json({ message: "Hello Hrishi" });
 });
 
 app.post("/upload", upload.single("file"), function (req, res) {
